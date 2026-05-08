@@ -21,7 +21,7 @@ const SITE_CONFIG = {
         enabled: true,          // 是否开启智能问答
         title: "智能问答助手",   // 机器人名称
         greeting: "您好！我是智能助手，可以帮您查询和解答相关公示信息。请问有什么可以帮您？",
-        // ⚠️ API Key 会暴露在网页源码中，上线前请删除此行！
+        apiKey: "sk-dd6cb646cccf4f72a71bb66029851ced"
     }
 };
 
