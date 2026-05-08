@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="信息公示平台">
+    <title>信息公示平台</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========== 顶部导航 ========== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-left">
+                <div class="site-logo">📋</div>
+                <div>
+                    <div class="site-title">信息公示平台</div>
+                    <div class="site-subtitle">信息公开 · 透明公正 · 服务公众</div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="index.html" class="active">首页</a>
+                <a href="#about">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== 搜索栏 ========== -->
+    <div class="search-bar">
+        <div class="search-inner">
+            <div class="search-input-wrap">
+                <input type="text" class="search-input" placeholder="搜索公示信息..." maxlength="100">
+                <button class="search-clear">✕</button>
+            </div>
+            <button class="search-btn">搜索</button>
+        </div>
+    </div>
+
+    <!-- ========== 分类导航 ========== -->
+    <div class="category-nav">
+        <!-- JS 动态渲染 -->
+    </div>
+
+    <!-- ========== 结果统计 ========== -->
+    <div class="result-info">
+        <span></span>
+    </div>
+
+    <!-- ========== 主体内容 ========== -->
+    <main class="main-container">
+        <div class="notice-container">
+            <!-- JS 动态渲染 -->
+        </div>
+    </main>
+
+    <!-- ========== 分页 ========== -->
+    <div class="pagination"></div>
+
+    <!-- ========== 页脚 ========== -->
+    <footer class="site-footer">
+        <p class="footer-copyright"></p>
+        <p class="footer-icp" style="margin-top:4px;"></p>
+    </footer>
+
+    <!-- ========== 分享按钮 + 二维码弹窗 ========== -->
+    <button class="share-fab" title="分享本网站">
+        <span class="share-fab-icon">📱</span>
+    </button>
+    <div class="qr-overlay">
+        <div class="qr-modal">
+            <button class="qr-close">✕</button>
+            <h3>扫码访问</h3>
+            <p class="qr-desc">扫描二维码即可在手机上打开本网站</p>
+            <div class="qr-code-wrap">
+                <div id="qrcode"></div>
+            </div>
+            <div class="qr-url" id="qrUrl"></div>
+            <button class="qr-copy-btn" onclick="window.copyQrUrl()">📋 复制链接</button>
+        </div>
+    </div>
+
+    <!-- ========== 智能问答机器人 ========== -->
+    <div class="agent-widget" id="agentWidget">
+        <button class="agent-toggle" id="agentToggle" title="智能问答助手">
+            <span class="agent-toggle-icon">💬</span>
+            <span class="agent-toggle-text">智能助手</span>
+        </button>
+        <div class="agent-panel" id="agentPanel">
+            <div class="agent-header">
+                <span>🤖 智能问答助手</span>
+                <button class="agent-minimize" id="agentMinimize">─</button>
+                <button class="agent-close" id="agentClose">✕</button>
+            </div>
+            <div class="agent-messages" id="agentMessages">
+                <div class="agent-msg bot">
+                    <div class="agent-msg-content">您好！我是信息公示平台的智能助手，可以帮您查询和解答相关公示信息。请问有什么可以帮您？</div>
+                </div>
+            </div>
+            <div class="agent-input-area">
+                <textarea class="agent-input" id="agentInput" placeholder="输入您的问题..." rows="1"></textarea>
+                <button class="agent-send" id="agentSend">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="js/share.js"></script>
+    <script src="js/agent.js"></script>
+
+</body>
+</html>
