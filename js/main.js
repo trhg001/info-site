@@ -42,7 +42,8 @@
     function renderCategoryNav() {
         const nav = $('.category-nav');
         if (!nav) return;
-        nav.innerHTML = CATEGORIES.map(c =>
+        const cats = SITE_CONFIG.categories || CATEGORIES;
+        nav.innerHTML = cats.map(c =>
             `<span class="category-tag${c === currentCategory ? ' active' : ''}" data-category="${c}">${c}</span>`
         ).join('');
     }
