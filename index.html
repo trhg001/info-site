@@ -2623,7 +2623,7 @@ const NOTICES = [
 
         const main = $('.main-container');
 
-        // 原文链接（醒目展示在顶部）
+        // 原文链接（正文下方展示）
         const sourceHtml = notice.links && notice.links.length
             ? `<div class="detail-source-box"><div class="detail-source-label">📄 原文出处</div>${notice.links.map(l => `
                 <a class="detail-source-link" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">
@@ -2641,20 +2641,6 @@ const NOTICES = [
                             <span class="attachment-icon">${getFileIcon(a.name, a.type)}</span>
                             <span class="attachment-name">${escapeHtml(a.name)}</span>
                             <span class="attachment-action">下载</span>
-                        </a>
-                    `).join('')}
-                </div>
-            </div>` : '';
-
-        // 相关链接 HTML
-        const linksHtml = notice.links && notice.links.length
-            ? `<div class="detail-section">
-                <h3>🔗 相关链接</h3>
-                <div class="link-list">
-                    ${notice.links.map(l => `
-                        <a class="link-item" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">
-                            <span>${escapeHtml(l.title)}</span>
-                            <span class="link-arrow">↗</span>
                         </a>
                     `).join('')}
                 </div>
@@ -2702,7 +2688,6 @@ const NOTICES = [
                 </div>
                 ${sourceHtml}
                 ${attachmentsHtml}
-                ${linksHtml}
                 ${uploadHtml}
             </div>`;
 
