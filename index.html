@@ -1183,6 +1183,50 @@ a:hover { text-decoration: underline; }
     .service-icon { font-size: 28px; margin-bottom: 0; }
 }
 
+/* ========== 原文出处 ========== */
+.detail-source-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+    border: 1px solid #f59e0b;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+}
+.detail-source-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.detail-source-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #fff;
+    border: 1px solid #fcd34d;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1e3a8a;
+    font-size: 13px;
+    transition: all .2s;
+}
+.detail-source-link:last-child { margin-bottom: 0; }
+.detail-source-link:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59,130,246,.15);
+}
+.detail-source-title { flex: 1; margin-right: 8px; }
+.detail-source-arrow {
+    font-size: 16px;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
 </style>
 </head>
 <body>
@@ -2364,6 +2408,14 @@ const NOTICES = [
 
         const main = $('.main-container');
 
+        // 原文链接（醒目展示在顶部）
+        const sourceHtml = notice.links && notice.links.length
+            ? `<div class="detail-source-box"><div class="detail-source-label">📄 原文出处</div>${notice.links.map(l => `
+                <a class="detail-source-link" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">
+                    <span class="detail-source-title">${escapeHtml(l.title)}</span>
+                    <span class="detail-source-arrow">↗</span>
+                </a>`).join('')}</div>` : '';
+
         // 附件 HTML
         const attachmentsHtml = notice.attachments && notice.attachments.length
             ? `<div class="detail-section">
@@ -2433,6 +2485,7 @@ const NOTICES = [
                 <div class="detail-content">
                     ${notice.content}
                 </div>
+                ${sourceHtml}
                 ${attachmentsHtml}
                 ${linksHtml}
                 ${uploadHtml}
@@ -2823,4 +2876,5 @@ const NOTICES = [
 })();
 
 </script>
-</body></html>
+</body>
+</html>
