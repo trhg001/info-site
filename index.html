@@ -1210,8 +1210,13 @@ a:hover { text-decoration: underline; }
     </div>
 
     <div class="category-nav"></div>
-
     <div class="result-info"><span></span></div>
+
+    <main class="main-container">
+        <div class="notice-container"></div>
+    </main>
+
+    <div class="pagination"></div>
 
     <div class="service-portal">
         <div class="service-portal-inner">
@@ -1236,12 +1241,6 @@ a:hover { text-decoration: underline; }
         </div>
     </div>
 
-    <main class="main-container">
-        <div class="notice-container"></div>
-    </main>
-
-    <div class="pagination"></div>
-
     <footer class="site-footer">
         <p class="footer-copyright"></p>
         <p class="footer-icp" style="margin-top:4px;"></p>
@@ -1257,7 +1256,7 @@ a:hover { text-decoration: underline; }
             <p class="qr-desc">扫描二维码即可在手机上打开本网站</p>
             <div class="qr-code-wrap"><div id="qrcode"></div></div>
             <div class="qr-url" id="qrUrl"></div>
-            <button class="qr-copy-btn">📋 复制链接</button>
+            <button class="qr-copy-btn" onclick="window.copyQrUrl()">📋 复制链接</button>
         </div>
     </div>
 
@@ -1284,8 +1283,8 @@ a:hover { text-decoration: underline; }
         </div>
     </div>
 
+    <script>var _BUILD="20260525151739";</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
     <script>
 // ========================================
 // 📋 内容数据文件 —— 在这里填写你的公示信息
