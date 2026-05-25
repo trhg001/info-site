@@ -1,11 +1,1189 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="信息公示平台">
-    <title>信息公示平台</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>铜仁海关信息公示</title>
+    <style>
+/* ========================================
+   信息公示平台 - 样式表
+   专业正式风格，适合政务/机构信息公示
+   ======================================== */
+
+/* -------- 基础设置 -------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #1a56db;         /* 主色调 - 稳重蓝 */
+    --primary-dark: #1e3a8a;
+    --primary-light: #dbeafe;
+    --accent: #d97706;          /* 强调色 - 金色点缀 */
+    --bg: #f5f7fa;
+    --bg-card: #ffffff;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --text-light: #9ca3af;
+    --border: #e5e7eb;
+    --shadow: 0 1px 3px rgba(0,0,0,.08);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,.1);
+    --radius: 8px;
+    --max-width: 1100px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* -------- 顶部导航 -------- */
+.site-header {
+    background: var(--primary-dark);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+.header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.site-logo {
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.site-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.site-subtitle {
+    font-size: 12px;
+    opacity: .75;
+    margin-top: 2px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-nav {
+    display: flex;
+    gap: 4px;
+}
+
+.header-nav a {
+    color: rgba(255,255,255,.85);
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all .2s;
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* -------- 搜索栏 -------- */
+.search-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 24px 20px;
+}
+
+.search-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.search-input-wrap::before {
+    content: "🔍";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    z-index: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s;
+    background: #fff;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+}
+
+.search-clear {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-light);
+    display: none;
+}
+
+.search-clear.visible { display: block; }
+.search-clear:hover { color: var(--text); }
+
+.search-btn {
+    padding: 12px 28px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s;
+    font-weight: 500;
+}
+
+.search-btn:hover { background: var(--primary-dark); }
+
+/* -------- 分类标签 -------- */
+.category-nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.category-tag {
+    padding: 6px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all .2s;
+    color: var(--text-secondary);
+    user-select: none;
+}
+
+.category-tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.category-tag.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* -------- 主体布局 -------- */
+.main-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 50vh;
+}
+
+/* -------- 公告列表 -------- */
+.notice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.notice-item {
+    background: var(--bg-card);
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.notice-item:hover { background: #f8fafc; }
+
+.notice-item.pinned { background: #fffbeb; }
+.notice-item.pinned:hover { background: #fef3c7; }
+
+.pin-badge {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.notice-date-col {
+    flex-shrink: 0;
+    width: 56px;
+    text-align: center;
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 8px 4px;
+    line-height: 1.2;
+}
+
+.notice-date-day {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.notice-date-month {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.notice-content-col {
+    flex: 1;
+    min-width: 0;
+}
+
+.notice-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.notice-item:hover .notice-title { color: var(--primary); }
+
+.notice-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.notice-meta {
+    font-size: 12px;
+    color: var(--text-light);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.notice-category-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* -------- 空状态 -------- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.empty-state-text {
+    font-size: 16px;
+}
+
+/* -------- 详情页 -------- */
+.detail-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+}
+
+.detail-header {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+}
+
+.detail-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.detail-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.detail-content {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text);
+}
+
+.detail-content h3 {
+    font-size: 18px;
+    margin: 28px 0 12px;
+    color: var(--primary-dark);
+    padding-left: 12px;
+    border-left: 3px solid var(--primary);
+}
+
+.detail-content p {
+    margin: 10px 0;
+    text-indent: 2em;
+}
+
+.detail-content table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+}
+
+.detail-content table.data-table th {
+    background: var(--primary-dark);
+    color: #fff;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.detail-content table.data-table td {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.detail-content table.data-table tr:nth-child(even) {
+    background: var(--bg);
+}
+
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.detail-back:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* -------- 详情页 - 附件/链接/上传区域 -------- */
+.detail-section {
+    margin-top: 32px;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.detail-section h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+    border: none;
+    padding: 0;
+}
+
+/* 附件列表 */
+.attachment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all .2s;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.attachment-item:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    text-decoration: none;
+}
+
+.attachment-icon { font-size: 24px; flex-shrink: 0; }
+
+.attachment-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-action {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+/* 相关链接 */
+.link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all .2s;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link-item:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    text-decoration: none;
+}
+
+.link-arrow {
+    color: var(--primary);
+    font-size: 14px;
+}
+
+/* 文件上传区域 */
+.upload-area {
+    cursor: pointer;
+}
+
+.upload-dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    transition: all .2s;
+    background: var(--bg);
+}
+
+.upload-dropzone:hover,
+.upload-dropzone.dragover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.upload-icon { font-size: 40px; display: block; margin-bottom: 8px; }
+
+.upload-dropzone p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-indent: 0;
+}
+
+.upload-hint {
+    font-size: 12px !important;
+    color: var(--text-light) !important;
+}
+
+.upload-progress {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: var(--primary-light);
+    border-radius: 8px;
+}
+
+.upload-progress-text {
+    font-size: 13px;
+    color: var(--primary-dark);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.upload-progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.upload-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    animation: progressPulse 1.5s ease-in-out infinite;
+    width: 100%;
+}
+
+@keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+/* -------- 智能问答机器人 -------- */
+.agent-widget {
+    position: fixed;
+    bottom: 32px;
+    right: 92px;
+    z-index: 200;
+}
+
+.agent-toggle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26, 86, 219, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s;
+    animation: fabIn .5s ease-out;
+    gap: 0;
+    padding: 0;
+}
+
+.agent-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(26, 86, 219, 0.45);
+}
+
+.agent-toggle-icon { font-size: 20px; line-height: 1; }
+
+.agent-toggle-text {
+    font-size: 8px;
+    opacity: .9;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.agent-panel {
+    position: fixed;
+    bottom: 96px;
+    right: 16px;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 500px;
+    max-height: calc(100vh - 120px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp .3s ease-out;
+}
+
+.agent-panel.open { display: flex; }
+
+.agent-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.agent-header span { flex: 1; }
+
+.agent-minimize,
+.agent-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.8);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.agent-minimize:hover,
+.agent-close:hover {
+    background: rgba(255,255,255,.2);
+    color: #fff;
+}
+
+.agent-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f9fafb;
+}
+
+.agent-messages::-webkit-scrollbar { width: 4px; }
+.agent-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.agent-msg { display: flex; }
+.agent-msg.user { justify-content: flex-end; }
+.agent-msg.bot { justify-content: flex-start; }
+
+.agent-msg-content {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.agent-msg.user .agent-msg-content {
+    background: var(--primary);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.agent-msg.bot .agent-msg-content {
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+}
+
+.agent-msg-content code {
+    background: rgba(0,0,0,.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.agent-msg.user .agent-msg-content code {
+    background: rgba(255,255,255,.2);
+}
+
+.typing-dot {
+    animation: typingPulse 1.4s ease-in-out infinite;
+    display: inline-block;
+    margin: 0 1px;
+    font-size: 8px;
+    vertical-align: middle;
+    color: var(--text-light);
+}
+
+.typing-dot:nth-child(2) { animation-delay: .2s; }
+.typing-dot:nth-child(3) { animation-delay: .4s; }
+
+@keyframes typingPulse {
+    0%, 60%, 100% { opacity: .3; }
+    30% { opacity: 1; }
+}
+
+.agent-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    background: #fff;
+    flex-shrink: 0;
+    align-items: flex-end;
+}
+
+.agent-input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    resize: none;
+    font-family: inherit;
+    outline: none;
+    max-height: 120px;
+    line-height: 1.5;
+}
+
+.agent-input:focus { border-color: var(--primary); }
+
+.agent-send {
+    padding: 10px 18px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background .2s;
+}
+
+.agent-send:hover { background: var(--primary-dark); }
+.agent-send:disabled { opacity: .5; cursor: default; }
+
+/* -------- 关于页面 -------- */
+.about-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.about-page h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--primary);
+}
+
+.about-page p {
+    margin: 12px 0;
+    line-height: 1.9;
+}
+
+.about-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+}
+
+.about-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--primary-dark);
+}
+
+/* -------- 底部分页 -------- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 16px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all .2s;
+    color: var(--text);
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.page-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.page-btn:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+/* -------- 顶部结果统计 -------- */
+.result-info {
+    padding: 8px 20px 0;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* -------- 页脚 -------- */
+.site-footer {
+    background: var(--primary-dark);
+    color: rgba(255,255,255,.7);
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    margin-top: 40px;
+}
+
+.site-footer a { color: rgba(255,255,255,.9); }
+
+/* -------- 分享浮动按钮 -------- */
+.share-fab {
+    position: fixed;
+    bottom: 32px;
+    right: 28px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(26, 86, 219, 0.35);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s;
+    animation: fabIn .5s ease-out;
+}
+
+.share-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(26, 86, 219, 0.45);
+}
+
+.share-fab-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+@keyframes fabIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* -------- 二维码弹窗 -------- */
+.qr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn .25s ease-out;
+}
+
+.qr-overlay.show {
+    display: flex;
+}
+
+.qr-modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    text-align: center;
+    max-width: 360px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    animation: slideUp .3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.qr-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 50%;
+    transition: all .2s;
+    line-height: 1;
+}
+
+.qr-close:hover {
+    color: var(--text);
+    background: var(--bg);
+}
+
+.qr-modal h3 {
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.qr-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.qr-code-wrap {
+    display: inline-block;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.qr-code-wrap canvas,
+.qr-code-wrap img {
+    display: block;
+}
+
+.qr-url {
+    font-size: 12px;
+    color: var(--text-secondary);
+    word-break: break-all;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.qr-copy-btn {
+    padding: 10px 28px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .2s;
+    font-weight: 500;
+}
+
+.qr-copy-btn:hover {
+    background: var(--primary-dark);
+}
+
+.qr-copy-btn.copied {
+    background: #059669;
+}
+
+/* -------- 响应式 -------- */
+@media (max-width: 768px) {
+    .header-inner {
+        padding: 12px 16px;
+        gap: 8px;
+    }
+    .site-title { font-size: 17px; }
+    .header-nav a { padding: 4px 10px; font-size: 13px; }
+    
+    .search-bar { padding: 16px; }
+    .search-input { font-size: 14px; padding: 10px 14px 10px 36px; }
+    .search-btn { padding: 10px 20px; font-size: 14px; }
+    
+    .category-nav { padding: 12px 16px; gap: 6px; }
+    .category-tag { padding: 5px 14px; font-size: 12px; }
+    
+    .main-container { padding: 12px 12px; }
+    
+    .notice-item { padding: 16px; flex-direction: column; gap: 10px; }
+    .notice-date-col { 
+        width: 100%; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px;
+        padding: 4px 8px;
+        background: none;
+    }
+    .notice-date-day { font-size: 16px; }
+    .notice-date-month { margin-top: 0; }
+    .pin-badge { position: static; align-self: flex-start; }
+    
+    .detail-title { font-size: 20px; }
+    .detail-content { font-size: 14px; }
+    .detail-content h3 { font-size: 16px; }
+    .detail-content p { text-indent: 1em; }
+    
+    .about-page { padding: 24px 16px 40px; }
+    .about-card { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+    .header-nav { gap: 2px; }
+    .header-nav a { padding: 4px 8px; font-size: 12px; }
+    .search-inner { flex-direction: column; }
+    .search-btn { width: 100%; }
+}
+
+/* ========== 常用服务平台 ========== */
+.service-portal {
+    max-width: var(--max-width, 1120px);
+    margin: 0 auto 20px;
+    padding: 0 16px;
+}
+.service-portal-inner {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.service-portal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.service-portal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 22px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    border: 1px solid #dbeafe;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+}
+.service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(30,64,175,.15);
+    border-color: #93c5fd;
+}
+.service-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+.service-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+}
+.service-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .service-portal-grid {
+        grid-template-columns: 1fr;
+    }
+    .service-card {
+        flex-direction: row;
+        text-align: left;
+        gap: 14px;
+        padding: 16px;
+    }
+    .service-icon { font-size: 28px; margin-bottom: 0; }
+}
+
+    </style>
 </head>
 <body>
 
@@ -18,10 +1196,6 @@
                     <div class="site-subtitle">信息公开 · 透明公正 · 服务公众</div>
                 </div>
             </div>
-            <nav class="header-nav">
-                <a href="index.html" class="active">首页</a>
-                <a href="#about">关于我们</a>
-            </nav>
         </div>
     </header>
 
@@ -83,13 +1257,1652 @@
             <p class="qr-desc">扫描二维码即可在手机上打开本网站</p>
             <div class="qr-code-wrap"><div id="qrcode"></div></div>
             <div class="qr-url" id="qrUrl"></div>
-            <button class="qr-copy-btn" onclick="window.copyQrUrl()">📋 复制链接</button>
+            <button class="qr-copy-btn">📋 复制链接</button>
         </div>
     </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/share.js"></script>
-    <script src="js/agent.js"></script>
+    <div class="agent-widget" id="agentWidget">
+        <button class="agent-toggle" id="agentToggle" title="智能问答助手">
+            <span class="agent-toggle-icon">💬</span>
+            <span class="agent-toggle-text">智能助手</span>
+        </button>
+        <div class="agent-panel" id="agentPanel">
+            <div class="agent-header">
+                <span>🤖 智能问答助手</span>
+                <button class="agent-minimize" id="agentMinimize">─</button>
+                <button class="agent-close" id="agentClose">✕</button>
+            </div>
+            <div class="agent-messages" id="agentMessages">
+                <div class="agent-msg bot">
+                    <div class="agent-msg-content">您好！我是智能助手，可以帮您查询和解答相关公示信息。请问有什么可以帮您？</div>
+                </div>
+            </div>
+            <div class="agent-input-area">
+                <textarea class="agent-input" id="agentInput" placeholder="输入您的问题..." rows="1"></textarea>
+                <button class="agent-send" id="agentSend">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+// ========================================
+// 📋 内容数据文件 —— 在这里填写你的公示信息
+// ========================================
+const SITE_CONFIG = {
+    siteName: "铜仁海关信息公示",
+    siteDesc: "守国门 促发展 当好让人民满意的国门卫士",
+    copyright: "铜仁海关信息公示",
+    icp: "",
+    agent: {
+        enabled: true,
+        title: "智能问答助手",
+        greeting: "您好！我是智能助手，可以帮您查询和解答相关公示信息。请问有什么可以帮您？",
+        apiKey: "sk-dd6cb646cccf4f72a71bb66029851ced"
+    }
+};
+const CATEGORIES = [
+    "全部",
+    "通知公告",
+    "政策法规",
+    "办事指南",
+    "风险预警",
+    "其他"
+];
+const NOTICES = [
+    {
+        id: 1,
+        title: "关于2025年度信息公开工作的实施方案",
+        category: "通知公告",
+        date: "2026-05-01",
+        summary: "为进一步推进信息公开工作，保障公众知情权和监督权，结合实际情况制定本实施方案。",
+        content: `
+            <h3>一、工作目标</h3>
+            <p>坚持以公开为常态、不公开为例外，全面推进决策、执行、管理、服务、结果公开，提升信息公开的标准化、规范化水平。</p>
+            <h3>二、主要任务</h3>
+            <p>1. 完善信息公开目录，明确公开内容和时限；</p>
+            <p>2. 优化公开流程，提高信息发布的时效性；</p>
+            <p>3. 加强平台建设，提升用户体验和互动能力；</p>
+            <p>4. 健全监督机制，确保信息公开质量。</p>
+            <h3>三、保障措施</h3>
+            <p>1. 加强组织领导，明确责任分工；</p>
+            <p>2. 完善考核机制，定期评估公开效果；</p>
+            <p>3. 强化队伍建设，提升业务能力。</p>
+        `,
+        author: "办公室",
+        pinned: false,
+        attachments: [
+            { name: "信息公开实施方案.pdf", url: "/uploads/info-plan.pdf", type: "pdf" }
+        ],
+        links: [
+            { title: "国务院信息公开条例", url: "https://www.gov.cn/zwgk/2007-04/24/content_592937.htm" }
+        ]
+    },
+    {
+        id: 2,
+        title: "2026年第一季度信息公开工作情况通报",
+        category: "风险预警",
+        date: "2026-04-15",
+        summary: "本季度共发布各类信息120条，主动公开率达98%，收到信息公开申请15件，全部按时答复。",
+        content: `
+            <h3>一、总体情况</h3>
+            <p>2026年第一季度，共通过网站、公众号等渠道发布各类信息120条，其中主动公开信息118条，依申请公开2条，主动公开率达98%。</p>
+            <h3>二、分类统计</h3>
+            <table class="data-table">
+                <tr><th>信息类别</th><th>发布数量</th><th>占比</th></tr>
+                <tr><td>通知公告</td><td>35条</td><td>29%</td></tr>
+                <tr><td>政策法规</td><td>20条</td><td>17%</td></tr>
+                <tr><td>办事指南</td><td>28条</td><td>23%</td></tr>
+                <tr><td>风险预警</td><td>25条</td><td>21%</td></tr>
+                <tr><td>其他信息</td><td>12条</td><td>10%</td></tr>
+            </table>
+            <h3>三、依申请公开情况</h3>
+            <p>本季度共收到信息公开申请15件，涉及环境保护、城市规划、财政预决算等领域，均在法定期限内予以答复。</p>
+            <h3>四、下一步工作安排</h3>
+            <p>1. 进一步丰富公开内容；</p>
+            <p>2. 优化网站搜索功能；</p>
+            <p>3. 加强重点领域信息公开。</p>
+        `,
+        author: "信息中心",
+        pinned: false
+    },
+    {
+        id: 3,
+        title: "信息公开指南（2026年修订版）",
+        category: "办事指南",
+        date: "2026-03-20",
+        summary: "为方便公众获取信息，现发布修订后的信息公开指南，明确公开范围、获取方式和监督渠道。",
+        content: `
+            <h3>一、主动公开范围</h3>
+            <p>以下信息应当主动向社会公开：</p>
+            <p>1. 机构设置、职能、办事程序等概况信息；</p>
+            <p>2. 行政法规、规章和规范性文件；</p>
+            <p>3. 发展规划、专项规划及相关政策；</p>
+            <p>4. 财政预算、决算报告；</p>
+            <p>5. 重大建设项目的批准和实施情况。</p>
+            <h3>二、获取方式</h3>
+            <p><strong>网站查阅：</strong>通过本网站直接浏览和检索相关信息。</p>
+            <p><strong>现场查阅：</strong>可前往信息查阅点进行查阅。</p>
+            <p><strong>依申请公开：</strong>填写申请表后提交。</p>
+            <h3>三、监督与投诉</h3>
+            <p>如发现信息公开工作中存在问题，可通过以下渠道反映：</p>
+            <p>监督电话：XXX-XXXXXXX</p>
+            <p>电子邮箱：example@example.com</p>
+        `,
+        author: "办公室",
+        pinned: false
+    },
+    {
+        id: 4,
+        title: "关于规范信息公开审批流程的通知",
+        category: "政策法规",
+        date: "2026-02-10",
+        summary: "为进一步规范信息公开审批流程，确保信息发布的准确性、及时性和权威性，现就有关事项通知如下。",
+        content: `
+            <h3>一、审批原则</h3>
+            <p>信息公开审批应遵循"谁产生、谁审核、谁负责"的原则，确保拟公开信息的准确性、完整性和时效性。</p>
+            <h3>二、审批流程</h3>
+            <p>1. 信息产生部门提出公开申请；</p>
+            <p>2. 分管领导审核内容；</p>
+            <p>3. 保密审查（如涉及）；</p>
+            <p>4. 主要领导批准发布。</p>
+            <h3>三、时限要求</h3>
+            <p>信息形成后应在20个工作日内予以公开。法律法规另有规定的，从其规定。</p>
+        `,
+        author: "法规处",
+        pinned: false
+    },
+    {
+        id: 5,
+        title: "欢迎访问信息公示平台",
+        category: "通知公告",
+        date: "2026-01-01",
+        summary: "信息公示平台正式上线运行，为公众提供更加便捷、高效的信息查询服务。",
+        content: `
+            <h3>平台简介</h3>
+            <p>信息公示平台是面向公众的官方信息发布渠道，致力于保障公众的知情权、参与权和监督权。</p>
+            <h3>主要功能</h3>
+            <p>1. <strong>信息浏览：</strong>按分类浏览各类公示信息；</p>
+            <p>2. <strong>关键词搜索：</strong>快速查找感兴趣的内容；</p>
+            <p>3. <strong>手机适配：</strong>支持手机端流畅访问。</p>
+            <h3>使用说明</h3>
+            <p>您可以通过顶部分类导航或搜索功能快速找到需要的信息。如需更多帮助，请联系我们。</p>
+        `,
+        author: "信息中心",
+        pinned: false
+    },
+    {
+        id: 6,
+        title: "供港澳活牛育肥场、中转仓检验检疫注册登记办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "供港澳活牛育肥场和中转仓须向所在地直属海关申请注册，实行一场（仓）一证制度，经注册后方可供应港澳地区。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出境特定动植物及其产品、其他检疫物的生产、加工、存放单位注册登记——供港澳活牛育肥场、中转仓</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国进出境动植物检疫法实施条例》第三十二条</p>
+            <p>2.《供港澳活牛检验检疫管理办法》第五条：供港澳活牛育肥场、中转仓须向所在地直属海关申请注册，实行一场（仓）一证制度。</p>
+            <p>3.《供港澳食用陆生动物检验检疫管理办法》（海关总署令第266号）</p>
+            <h3>三、实施机构</h3>
+            <p>所在地直属海关</p>
+            <h3>四、法定办结时限</h3>
+            <p>自受理申请之日起20个工作日内作出是否核准的决定。</p>
+            <h3>五、收费标准</h3>
+            <p>不收费</p>
+            <h3>六、育肥场申请条件</h3>
+            <p>1. 具有独立企业法人资格；</p>
+            <p>2. 过去6个月内育肥场及其周围10公里范围内未发生过口蹄疫，场内未发生过炭疽、结核病和布氏杆菌病；</p>
+            <p>3. 设计存栏数量及实际存栏量均不得少于200头；</p>
+            <p>4. 育肥场周围500米范围内无其他动物饲养场、医院、牲畜交易市场、屠宰场；</p>
+            <p>5. 设有动物卫生防疫领导小组并配备经海关认可的兽医；</p>
+            <p>6. 具有健全的动物卫生防疫制度和饲养管理制度；</p>
+            <p>7. 场区设置有兽医室和日常防疫消毒及诊疗用器械；</p>
+            <p>8. 育肥场周围设有围墙(围栏或铁丝网)，并设有专人看守的大门；</p>
+            <p>9. 生产区与生活区严格分开，布局合理；</p>
+            <p>10. 设有入场和出场隔离检疫区，入场隔离检疫区距离育肥区至少50米；</p>
+            <p>11. 生产区出入口须设置车辆消毒池及喷雾消毒设施；</p>
+            <p>12. 场区工作人员无结核病、布氏杆菌病等人畜共患病；</p>
+            <p>13. 水源充足、水质符合国家饮用水标准；</p>
+            <p>14. 具有粪便、污水处理设施；</p>
+            <p>15. 所有饲料及饲料添加剂不含违禁药品。</p>
+            <h3>七、中转仓申请条件</h3>
+            <p>1. 具有独立企业法人资格；</p>
+            <p>2. 中转仓过去21天内未发生过一类传染病；</p>
+            <p>3. 中转仓设计存栏数量不得少于20头；</p>
+            <p>4. 周围设有围墙，内设用实心墙相互隔离的圈舍；</p>
+            <p>5. 设有动物卫生防疫领导小组并至少配备一名经海关认可的兽医；</p>
+            <p>6. 具有健全的动物卫生防疫制度和饲养管理制度；</p>
+            <p>7. 大门设置有车辆消毒池及喷雾消毒设施；</p>
+            <p>8. 水源充足，水质符合饮用水标准；</p>
+            <p>9. 具有无害化处理设施。</p>
+            <h3>八、结果名称</h3>
+            <p>注册登记证书</p>
+            <h3>九、办理途径</h3>
+            <p>网上办理：登录"互联网+海关"政务服务平台（https://online.customs.gov.cn），进入"行政审批"版块提交申请。也可向所在地直属海关提交申请材料。</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "《供港澳食用陆生动物检验检疫管理办法》（海关总署令第266号）", url: "http://www.customs.gov.cn/ningbo_customs/ztjj92/3392205/5701784/index.html" }
+        ]
+    },
+    {
+        id: 7,
+        title: "出口食品原料种植场备案——茶叶、食用菌种植基地办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "海关总署对出口食品原料种植场实施备案管理，实施备案管理的出口食品原料品种目录包括蔬菜（含栽培食用菌）、茶叶等。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出口食品原料种植场备案（茶叶、食用菌等）</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国食品安全法》第九十九条：出口食品生产企业和出口食品原料种植、养殖场应当向国家出入境检验检疫部门备案。</p>
+            <p>2.《中华人民共和国进出口食品安全管理办法》（海关总署249号令）</p>
+            <p>3.《关于公布实施备案管理出口食品原料品种目录的公告》：蔬菜（含栽培食用菌）、茶叶、大米、禽肉、禽蛋、猪肉、兔肉、蜂产品、水产品。</p>
+            <p>4.《出口食品原料种植场备案管理规定》</p>
+            <h3>三、适用范围</h3>
+            <p>本指南适用于茶叶种植基地、食用菌（栽培）种植基地等出口食品原料种植场的备案申请。</p>
+            <h3>四、申请条件</h3>
+            <p>具有独立法人资格的出口食品生产加工企业、种植场、农民专业合作经济组织或者行业协会等组织均可申请。</p>
+            <h3>五、种植场基本要求</h3>
+            <p>1. 种植场有合法经营种植用地的证明文件；</p>
+            <p>2. 符合当地海关确定的土地面积要求；</p>
+            <p>3. 大气、土壤和灌溉用水符合国家有关标准，周边无污染源；</p>
+            <p>4. 建立完善的质量安全管理制度（组织机构、农业投入品管理、疫情疫病监测、有毒有害物质控制、生产和追溯记录制度等）；</p>
+            <p>5. 配备专职或兼职植保员。</p>
+            <h3>六、申请材料</h3>
+            <p>1.《出口食品原料种植场备案申请表》（加盖公章）；</p>
+            <p>2. 种植场平面图；</p>
+            <p>3. 种植场合法经营种植用地的证明材料；</p>
+            <p>4. 质量安全管理制度文件；</p>
+            <p>5. 种植场负责人、植保员身份证复印件及相关资格证明。</p>
+            <h3>七、办理流程</h3>
+            <p>1. 种植场向所在地主管海关申请备案；</p>
+            <p>2. 所在地海关受理后进行文件审核，必要时现场审核；</p>
+            <p>3. 审核符合条件的，予以备案并公布备案号。</p>
+            <h3>八、办理途径</h3>
+            <p>网上办理：登录"互联网+海关"平台（http://online.customs.gov.cn），进入"企业管理和稽查"版块；或登录"中国国际贸易单一窗口"（https://www.singlewindow.cn）"企业资质"模块。</p>
+            <h3>九、收费标准</h3>
+            <p>不收费</p>
+            <h3>十、茶叶出口注意事项</h3>
+            <p>出口茶叶企业还需同时办理出口食品生产企业备案。出口茶叶的原料必须来自备案种植场。</p>
+            <h3>十一、食用菌出口注意事项</h3>
+            <p>栽培食用菌属于实施备案管理的出口食品原料品种，其种植场（含大棚、厂房等栽培设施）须向海关备案。</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "兰州海关——出口食品原料种植场备案", url: "http://shenzhen.customs.gov.cn/lanzhou_customs/553151/553153/553156/2693663/index.html" },
+            { title: "海关总署——茶叶出口咨询答复", url: "http://www.customs.gov.cn/eportal/ui?msgDataId=18beeadc2863465dbdb3218399423d8e&pageId=374112" }
+        ]
+    },
+    {
+        id: 8,
+        title: "出境水果果园及包装厂注册登记办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "出境水果果园和包装厂须向所在地海关申请注册登记，经考核合格后颁发注册登记证书，有效期为3年。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出境特定动植物及其产品和其他检疫物的生产、加工、存放单位注册登记——出境水果果园及包装厂</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国进出境动植物检疫法实施条例》第三十二条</p>
+            <p>2.《出境水果检验检疫监督管理办法》</p>
+            <h3>三、出境水果果园申请条件</h3>
+            <p>1. 连片种植，面积在100亩以上；</p>
+            <p>2. 周围无影响水果生产的污染源；</p>
+            <p>3. 有专职或者兼职植保员，负责果园有害生物监测防治等工作；</p>
+            <p>4. 建立完善的质量管理体系（组织机构、人员培训、有害生物监测与控制、农用化学品使用管理、良好农业操作规范等）；</p>
+            <p>5. 近两年未发生重大植物疫情。</p>
+            <h3>四、出境水果包装厂申请条件</h3>
+            <p>1. 厂区整洁卫生，有满足水果贮存要求的原料场、成品库；</p>
+            <p>2. 水果存放、加工、处理、储藏等功能区相对独立、布局合理，且与生活区采取隔离措施；</p>
+            <p>3. 具有符合检疫要求的清洗、加工、防虫防病及除害处理设施；</p>
+            <p>4. 加工水果所使用的水源及农用化学品均须符合食品卫生要求；</p>
+            <p>5. 有完善的卫生质量管理体系，包括对水果供货、加工、包装、储运等环节的管理；</p>
+            <p>6. 配备专职或者兼职植保员；</p>
+            <p>7. 有与其加工能力相适应的提供水果货源的果园，或者与供货果园建有固定的供货关系。</p>
+            <h3>五、申请材料</h3>
+            <p>果园：《出境水果果园注册登记申请表》、果园示意图和平面图。</p>
+            <p>包装厂：《出境水果包装厂注册登记申请表》、厂区平面图、工艺流程简要说明、供货果园名单及供货合约复印件。</p>
+            <h3>六、办理流程</h3>
+            <p>登录"互联网+海关"平台（https://online.customs.gov.cn）提交申请并上传材料；海关进行文件审核和现场考核；20个工作日内作出决定。</p>
+            <h3>七、证书有效期</h3>
+            <p>注册登记证书有效期为3年，有效期满前3个月应向所在地海关申请换证。</p>
+            <h3>八、收费标准</h3>
+            <p>不收费</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "济南海关——出境水果果园及包装厂注册登记", url: "http://jinan.customs.gov.cn/jinan_customs/500368/3980791/4461129/index.html" }
+        ]
+    },
+    {
+        id: 9,
+        title: "出口水产品原料养殖场备案办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "为出口食品生产企业提供水产品原料的水产养殖场应当向所在地海关备案。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出口水产品原料养殖场备案</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国食品安全法》第九十九条</p>
+            <p>2.《中华人民共和国进出口食品安全管理办法》（海关总署249号令）</p>
+            <p>3.《出口水产品原料养殖场备案管理办法》</p>
+            <h3>三、基本条件和卫生要求</h3>
+            <p>1. 依法取得县级以上农业或渔业部门认可为合法养殖的证明材料；</p>
+            <p>2. 养殖场周围无畜禽养殖场、医院、化工厂、垃圾场等污染源，内部环境卫生良好；</p>
+            <p>3. 养殖场内养殖池或网箱有规范的编号；</p>
+            <p>4. 水源充足，养殖用水水质符合《渔业水质标准》；</p>
+            <p>5. 场区卫生整洁、布局合理，避免进排水交叉污染；</p>
+            <p>6. 具有独立分设的药物和饲料仓库，有专人负责入出库登记；</p>
+            <p>7. 养殖密度适当，配备与养殖密度相适应的增氧设施；</p>
+            <p>8. 不存放和使用禁用药物，建立真实完整的用药记录，严格遵守停药期规定；</p>
+            <p>9. 投喂的饲料符合《饲料和饲料添加剂管理条例》要求；</p>
+            <p>10. 建立完善的水产养殖管理制度，相关记录保存至该批水产品全部销售后2年以上；</p>
+            <p>11. 配备养殖技术员。</p>
+            <h3>四、申请材料</h3>
+            <p>1.《出口水产品原料养殖场备案申请表》；</p>
+            <p>2. 县级以上农业或渔业部门认可为合法养殖的证明材料。</p>
+            <h3>五、办理程序</h3>
+            <p>申请人通过信息化系统向养殖场所在地海关提出申请，海关对材料齐全、符合法定形式的，在5个工作日内完成备案。</p>
+            <h3>六、备案有效期与年度报告</h3>
+            <p>备案有效期在合法养殖证明材料有效期内长期有效。备案养殖场应当于每年3月底前向所在地海关报送上年度报告。</p>
+            <h3>七、收费标准</h3>
+            <p>不收费</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "宁波海关——出口水产品原料养殖场备案指南", url: "http://ningbo.customs.gov.cn/ningbo_customs/470749/470750/6435488/index.html" }
+        ]
+    },
+    {
+        id: 10,
+        title: "出口蜂产品原料养殖场备案办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "出口蜂产品原料养殖场（养蜂场）须向所在地海关备案。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出口食品原料养殖场备案——出口蜂产品原料养殖场备案</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国食品安全法》第九十九条</p>
+            <p>2.《中华人民共和国进出口食品安全管理办法》（海关总署249号令）</p>
+            <p>3.《关于公布实施备案管理出口食品原料品种目录的公告》：蜂产品被列入实施备案管理的出口食品原料品种目录。</p>
+            <h3>三、申请条件</h3>
+            <p>1. 获得农业主管部门养殖许可；</p>
+            <p>2. 与出口食品生产企业签订供货协议；</p>
+            <p>3. 对养蜂场拥有管理权。</p>
+            <h3>四、申请材料</h3>
+            <p>1.《出口蜂产品原料备案养殖场申请表》（加盖公章）；</p>
+            <p>2. 申请单位合法证明材料；</p>
+            <p>3. 申请单位对养蜂场的各项管理制度（养蜂场管理制度、用药管理制度及记录、用药督查制度、蜜蜂养殖操作规范、养蜂日志、蜂产品追溯管理制度等）；</p>
+            <p>4. 养蜂场管理负责人、管理人员及技术人员的名单和相关资格证明；</p>
+            <p>5. 各养蜂生产小组所属区域及养蜂户数、蜂群数清单；</p>
+            <p>6. 企业和养蜂场签订的供货合同。</p>
+            <h3>五、办理流程</h3>
+            <p>申请人通过登录"海关政务服务一体化平台"（http://online.customs.gov.cn）或"中国国际贸易单一窗口"（https://www.singlewindow.cn），向所在地主管海关提出申请并上传材料；海关受理后进行审核；审核符合条件的，予以备案。</p>
+            <h3>六、备案有效期</h3>
+            <p>备案有效期为长期有效。</p>
+            <h3>七、收费标准</h3>
+            <p>不收费</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "拱北海关——出口蜂产品原料养殖场备案", url: "http://shanghai.customs.gov.cn/gongbei_customs/ztzl95/cjfw6/qyzzba/6863416/6863527/index.html" }
+        ]
+    },
+    {
+        id: 11,
+        title: "出口禽蛋原料养殖场备案办事指南",
+        category: "办事指南",
+        date: "2026-05-19",
+        summary: "出口禽蛋原料养殖场须向所在地海关备案。禽蛋被列入实施备案管理的出口食品原料品种目录。",
+        content: `
+            <h3>一、事项名称</h3>
+            <p>出口食品原料养殖场备案——出口禽蛋原料养殖场备案</p>
+            <h3>二、设定依据</h3>
+            <p>1.《中华人民共和国食品安全法》第九十九条</p>
+            <p>2.《中华人民共和国进出口食品安全管理办法》（海关总署249号令）</p>
+            <p>3.《关于公布实施备案管理出口食品原料品种目录的公告》：禽蛋被列入实施备案管理的出口食品原料品种目录。</p>
+            <h3>三、申请条件</h3>
+            <p>1. 获得农业主管部门养殖许可；</p>
+            <p>2. 与出口食品生产企业签订供货协议。</p>
+            <h3>四、申请材料</h3>
+            <p>1.《出口原料禽蛋养殖场备案申请表》（加盖公章）；</p>
+            <p>2. 营业执照等合法证明材料；</p>
+            <p>3. 农业主管部门颁发的养殖许可证明材料；</p>
+            <p>4. 与出口食品生产企业签订的供货协议；</p>
+            <p>5. 养殖场平面图及周边环境说明；</p>
+            <p>6. 养殖场质量安全管理制度（饲养管理、疫病防治、用药管理、饲料管理、消毒制度等）；</p>
+            <p>7. 养殖场负责人、技术人员名单及资格证明；</p>
+            <p>8. 饲料及饲料添加剂来源说明；</p>
+            <p>9. 免疫程序及用药管理制度。</p>
+            <h3>五、办理流程</h3>
+            <p>申请人通过登录"海关政务服务一体化平台"（http://online.customs.gov.cn）或"中国国际贸易单一窗口"（https://www.singlewindow.cn），向所在地主管海关提出申请并上传材料；海关受理后进行审核；审核符合条件的，予以备案。</p>
+            <h3>六、备案有效期</h3>
+            <p>备案有效期为长期有效。</p>
+            <h3>七、后续管理要求</h3>
+            <p>1. 备案养殖场应持续符合备案条件；</p>
+            <p>2. 养殖场信息发生变更的，应及时向海关申请变更；</p>
+            <p>3. 建立完善的养殖记录制度，记录保存不少于2年；</p>
+            <p>4. 不得使用国家禁止使用的药物和其他有毒有害物质；</p>
+            <p>5. 配合海关的日常监督管理和检查。</p>
+            <h3>八、收费标准</h3>
+            <p>不收费</p>
+        `,
+        author: "海关总署",
+        pinned: false,
+        links: [
+            { title: "拱北海关——出口禽蛋原料养殖场备案", url: "http://dalian.customs.gov.cn/gongbei_customs/ztzl95/cjfw6/qyzzba/6863416/6863530/index.html" }
+        ]
+    },
+    // ==================== 国际风险预警 ====================
+    {
+        id: 12,
+        title: "阿根廷出口花生仁被检出黄曲霉毒素超标",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "欧盟RASFF通报阿根廷出口花生仁黄曲霉毒素B1超标（3.5 µg/kg），荷兰发出警告通报，产品未分销，已通知发货人进行物理处理。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、通报日期</h3>
+            <p>2026年5月12日</p>
+            <h3>三、通报国家</h3>
+            <p>荷兰（通过欧盟RASFF系统）</p>
+            <h3>四、涉及产品</h3>
+            <p>阿根廷出口花生仁</p>
+            <h3>五、风险问题</h3>
+            <p>黄曲霉毒素B1超标，检测值为3.5 µg/kg</p>
+            <h3>六、通报类型</h3>
+            <p>警告通报</p>
+            <h3>七、处理措施</h3>
+            <p>未向其他成员国分销，已通知发货人，进行物理处理-分类，通知当局。</p>
+            <h3>八、风险提示</h3>
+            <p>出口企业应严格按照欧盟要求进行产品出口，注意食品中真菌毒素的存在，保证产品安全性，规避出口风险。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743453.html" }
+        ]
+    },
+    {
+        id: 13,
+        title: "韩国加强对疑似含有毒品成分的海外直购食品检查",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "韩国食药部（MFDS）2026年5-6月开展专项检查，针对海外直购食品中疑似含有的大麻成分（CBD、THC等）及苯丙胺等55种毒品成分。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、发布日期</h3>
+            <p>2026年5月11日</p>
+            <h3>三、发布机构</h3>
+            <p>韩国食品药品安全部（MFDS）</p>
+            <h3>四、检查范围</h3>
+            <p>通过大麻合法化国家电商平台等渠道海外直购的食品，重点关注果冻、饮料等产品。</p>
+            <h3>五、检查项目</h3>
+            <p>大麻成分（CBD、THC等）以及苯丙胺、帽柱木碱等共55种毒品成分，同时通过产品标签信息确认是否含有被禁止进入韩国的原料、成分。</p>
+            <h3>六、风险提示</h3>
+            <p>韩国食药部将定期开展检测，并与海关等机构合作，迅速阻断疑似含有毒品成分产品的入境及流通。相关出口企业应注意产品成分合规性。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743437.html" }
+        ]
+    },
+    {
+        id: 14,
+        title: "我国出口厨用酒在加拿大被召回",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "加拿大食品检验局2026年5月14日召回我国出口的绍兴厨用酒（600mL），因标签未声明过敏原（小麦），产品已在安大略省销售。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、召回日期</h3>
+            <p>2026年5月14日</p>
+            <h3>三、发布机构</h3>
+            <p>加拿大食品检验局（CFIA）</p>
+            <h3>四、涉及产品</h3>
+            <p>品名：Shaoxing cooking wine（绍兴厨用酒），重量：600 mL，UPC代码：6 912657 104298，保质期至2028年5月15日。已在安大略省销售。</p>
+            <h3>五、风险问题</h3>
+            <p>产品含有标签上未声明的过敏原（小麦），对小麦过敏的消费者食用后可能产生严重不良反应。</p>
+            <h3>六、建议措施</h3>
+            <p>对小麦过敏的消费者不要食用上述召回产品，应检查家中是否存有受召回产品并丢弃或退回购买商店。</p>
+            <h3>七、风险提示</h3>
+            <p>出口食品企业应注意目的国标签要求，必须如实标注所有过敏原成分，确保标签信息完整合规。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743415.html" }
+        ]
+    },
+    {
+        id: 15,
+        title: "西班牙出口奶酪中检出李斯特菌",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "法国通过欧盟RASFF通报西班牙出口奶酪检出李斯特菌，产品已退出市场并从消费者处召回销毁，属警告通报。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、通报日期</h3>
+            <p>2026年5月13日</p>
+            <h3>三、通报国家</h3>
+            <p>法国（通过欧盟RASFF系统）</p>
+            <h3>四、涉及产品</h3>
+            <p>西班牙出口奶酪</p>
+            <h3>五、风险问题</h3>
+            <p>检出单核细胞增生李斯特菌（Listeria monocytogenes）。该菌是一种可引起严重食源性疾病的致病菌，对孕妇、老年人及免疫力低下人群危害尤大。</p>
+            <h3>六、通报类型</h3>
+            <p>警告通报</p>
+            <h3>七、处理措施</h3>
+            <p>通知国未分销，产品已退出市场，从消费者处召回并销毁。</p>
+            <h3>八、风险提示</h3>
+            <p>出口食品企业应严格把控产品中致病菌风险，特别是乳制品等高风险品类，确保生产过程卫生，规避出口风险。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743408.html" }
+        ]
+    },
+    {
+        id: 16,
+        title: "日本追加中国企业作为食品中甜蜜素的命令检查对象",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "日本厚生劳动省2026年5月14日将中国企业JINHUA LAOJIEKOU FOOD CO.,LTD.追加到中国产食品甜蜜素命令检查对象企业清单。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、发布日期</h3>
+            <p>2026年5月14日</p>
+            <h3>三、发布机构</h3>
+            <p>日本厚生劳动省（健生食输发0514第1号通知）</p>
+            <h3>四、涉及企业</h3>
+            <p>JINHUA LAOJIEKOU FOOD CO.,LTD.（金华老街口食品有限公司）</p>
+            <h3>五、风险问题</h3>
+            <p>在进口时的自主检查中从该企业生产的食品中检测出甜蜜素（环己基氨基磺酸）。日本对甜蜜素采取命令检查措施，即对该企业的相关产品实施批批检查。</p>
+            <h3>六、风险提示</h3>
+            <p>出口日本食品企业应严格遵守日本食品添加剂使用标准，甜蜜素在日本食品中不得检出。被列入命令检查对象将增加通关时间和成本，影响企业出口。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743388.html" }
+        ]
+    },
+    {
+        id: 17,
+        title: "欧盟通报我国出口塑料厨具和尼龙厨具不合格",
+        category: "风险预警",
+        date: "2026-05-15",
+        summary: "欧盟RASFF 2026年5月13日通报我国出口塑料厨具（检查不足、无认证分析报告）和尼龙厨具（文件不完整）不合格，均为拒绝入境通报。",
+        content: `
+            <h3>一、预警来源</h3>
+            <p>食品伙伴网国际预警栏目</p>
+            <h3>二、通报日期</h3>
+            <p>2026年5月13日</p>
+            <h3>三、通报机构</h3>
+            <p>欧盟RASFF系统（欧盟委员会/爱尔兰）</p>
+            <h3>四、涉及产品及问题</h3>
+            <p>1. 塑料厨具（通报国：欧盟委员会，编号2026.4212）：检查不足，且没有经过认证的分析报告。产品尚未投放市场，已官方扣留。</p>
+            <p>2. 尼龙厨具（通报国：爱尔兰，编号2026.4239）：文件不完整。通知国未分销，已官方扣留。</p>
+            <h3>五、通报类型</h3>
+            <p>均为拒绝入境通报</p>
+            <h3>六、风险提示</h3>
+            <p>出口食品接触性材料（厨具等）的企业应严格按照进口国要求进行产品出口，注意食品接触性材料中各物质的迁移量，保证产品安全性并确保文件完整合规，规避出口风险。</p>
+        `,
+        author: "食品伙伴网",
+        pinned: false,
+        links: [
+            { title: "食品伙伴网原文", url: "https://news.foodmate.net/2026/05/743386.html" }
+        ]
+    }
+    },
+    // ==================== 政策法规 ====================
+    {
+        id: 18,
+        title: "海关总署令第284号：进出口化妆品检验检疫监督管理办法",
+        category: "政策法规",
+        date: "2026-05-06",
+        summary: "海关总署发布《中华人民共和国海关进出口化妆品检验检疫监督管理办法》，自发布之日起施行，进一步规范进出口化妆品检验检疫监督管理。",
+        content: '<h3>发文机关</h3><p>海关总署</p><h3>文号</h3><p>海关总署令第284号</p><h3>发布日期</h3><p>2026年5月6日</p><h3>主要内容</h3><p>办法进一步规范了进出口化妆品的检验检疫监督管理，明确了企业主体责任、检验检疫程序、标签要求、不合格产品处理等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/08/article_2026050808301380823.html"}]
+    },
+    {
+        id: 19,
+        title: "海关总署第281号令：进出境特殊货物物品卫生检疫管理规定",
+        category: "政策法规",
+        date: "2026-01-06",
+        summary: "海关总署公布《中华人民共和国海关进出境特殊货物物品卫生检疫管理规定》，自2026年8月1日起施行。",
+        content: '<h3>发文机关</h3><p>海关总署</p><h3>文号</h3><p>海关总署令第281号</p><h3>发布日期</h3><p>2026年1月6日</p><h3>施行日期</h3><p>2026年8月1日</p><h3>主要内容</h3><p>对进出境特殊货物物品的卫生检疫管理作出全面规定，包括申报要求、检疫程序、监督管理等。适用于特殊生物制品、人体组织、血液及其制品等特殊物品的进出境管理。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://shenyang.customs.gov.cn/zhanjiang_customs/534855/zfxxgkzn24/lzyj98/zcjd0/7008361/index.html"}]
+    },
+    {
+        id: 20,
+        title: "海关总署关于《海关总署关于修改部分规章的决定》的解读",
+        category: "政策法规",
+        date: "2026-05-15",
+        summary: "海关总署发布对部分规章修改决定的解读，涉及多条规章的修订内容、修订背景和实施要求。",
+        content: '<h3>发布机关</h3><p>海关总署</p><h3>发布日期</h3><p>2026年5月15日</p><h3>主要内容</h3><p>此次规章修改涉及进出口商品检验、动植物检疫、食品安全等多个领域的规章，旨在适应新形势下的监管需求，优化营商环境，提升通关便利化水平。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/18/article_2026051809230359025.html"}]
+    },
+    {
+        id: 21,
+        title: "海关总署公告2026年第65号：防止埃博拉病毒病疫情传入我国",
+        category: "政策法规",
+        date: "2026-05-18",
+        summary: "海关总署发布公告，就防止埃博拉病毒病疫情传入我国作出部署，对来自疫区的人员、交通工具、货物等实施检疫措施。",
+        content: '<h3>文号</h3><p>公告2026年第65号</p><h3>发布日期</h3><p>2026年5月18日</p><h3>主要内容</h3><p>为严防埃博拉病毒病疫情传入我国，对来自疫情发生国家或地区的人员、交通工具、集装箱、货物、行李物品、邮包快件等实施卫生检疫措施。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/19/article_2026051908465759649.html"}]
+    },
+    {
+        id: 22,
+        title: "海关总署关于铁路、公路运输方式进口煤炭检验采信有关事项的解读",
+        category: "政策法规",
+        date: "2026-05-22",
+        summary: "海关总署发布关于铁路和公路运输方式进口煤炭检验采信事项的政策解读，明确采信条件和程序。",
+        content: '<h3>发布机关</h3><p>海关总署</p><h3>发布日期</h3><p>2026年5月22日</p><h3>主要内容</h3><p>对铁路和公路运输方式进口煤炭实施检验采信管理，符合条件的进口煤炭可凭第三方检验机构出具的检验报告通关，提高通关效率。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/22/article_2026052222331519877.html"}]
+    },
+    {
+        id: 23,
+        title: "海关总署 农业农村部公告2026年第59号：防止莱索托非洲马瘟传入我国",
+        category: "政策法规",
+        date: "2026-05-07",
+        summary: "联合公告就防止莱索托非洲马瘟传入我国作出规定，禁止直接或间接从莱索托输入马属动物及其相关产品。",
+        content: '<h3>文号</h3><p>公告2026年第59号</p><h3>发文机关</h3><p>海关总署、农业农村部</p><h3>发布日期</h3><p>2026年5月7日</p><h3>主要内容</h3><p>禁止直接或间接从莱索托输入马属动物及其相关产品，停止签发从莱索托进口马属动物及其相关产品的《进境动植物检疫许可证》，对来自莱索托的运输工具实施防疫消毒处理。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/13/article_2026051308235444475.html"}]
+    },
+    {
+        id: 24,
+        title: "海关总署 农业农村部公告2026年第56号：防止阿根廷痒病传入我国",
+        category: "政策法规",
+        date: "2026-04-29",
+        summary: "联合公告防止阿根廷痒病（羊瘙痒病）传入我国，禁止从阿根廷输入羊及其相关产品。",
+        content: '<h3>文号</h3><p>公告2026年第56号</p><h3>发文机关</h3><p>海关总署、农业农村部</p><h3>发布日期</h3><p>2026年4月29日</p><h3>主要内容</h3><p>禁止直接或间接从阿根廷输入羊及其相关产品，对来自阿根廷的运输工具中可能夹带的羊及其相关产品做销毁处理。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/08/article_2026050814023312718.html"}]
+    },
+    {
+        id: 25,
+        title: "海关总署公告2026年第55号：进口西班牙开心果和无花果干检验检疫要求",
+        category: "政策法规",
+        date: "2026-04-28",
+        summary: "海关总署发布关于西班牙开心果和无花果干输华检验检疫和卫生要求的公告，允许符合要求的西班牙开心果和无花果干进口。",
+        content: '<h3>文号</h3><p>公告2026年第55号</p><h3>发布日期</h3><p>2026年4月28日</p><h3>主要内容</h3><p>公告规定了西班牙开心果和无花果干输华的检验检疫和卫生要求，包括产地管理、加工储运、证书要求等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/30/article_2026043011233012449.html"}]
+    },
+    {
+        id: 26,
+        title: "海关总署公告2026年第54号：非洲国家零关税项下进口货物原产地管理规定",
+        category: "政策法规",
+        date: "2026-04-28",
+        summary: "海关总署公布对同中国建交的20个不属于最不发达国家的非洲国家实施零关税项下进口货物的原产地管理规定。",
+        content: '<h3>文号</h3><p>公告2026年第54号</p><h3>发布日期</h3><p>2026年4月28日</p><h3>主要内容</h3><p>公告明确了20个非洲国家零关税待遇项下进口货物的原产地规则、直接运输规则、原产地证书签发的具体要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/29/article_2026042908570039662.html"}]
+    },
+    {
+        id: 27,
+        title: "海关总署公告2026年第53号：进口英国食用水生动物检疫和卫生要求",
+        category: "政策法规",
+        date: "2026-04-27",
+        summary: "海关总署发布关于英国食用水生动物输华检疫和卫生要求的公告，允许符合要求的英国食用水生动物进口。",
+        content: '<h3>文号</h3><p>公告2026年第53号</p><h3>发布日期</h3><p>2026年4月27日</p><h3>主要内容</h3><p>公告规定了英国输华食用水生动物（包括活鱼类、活甲壳类、活软体类等）的检疫和卫生要求，包括境外养殖场注册、检疫证书等。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/30/article_2026043011163626452.html"}]
+    },
+    {
+        id: 28,
+        title: "海关总署公告2026年第52号：进口越南鲜食柚子和莱檬植物检疫要求",
+        category: "政策法规",
+        date: "2026-04-27",
+        summary: "海关总署发布关于越南鲜食柚子和莱檬输华植物检疫要求的公告，允许符合要求的越南鲜食柚子和莱檬进口。",
+        content: '<h3>文号</h3><p>公告2026年第52号</p><h3>发布日期</h3><p>2026年4月27日</p><h3>主要内容</h3><p>公告规定了越南鲜食柚子和莱檬输华的植物检疫要求，包括果园管理、包装加工、出口前检疫处理、植物检疫证书等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/29/article_2026042908442950150.html"}]
+    },
+    {
+        id: 29,
+        title: "海关总署公告2026年第51号：进口西班牙动物蛋白饲料检疫和卫生要求",
+        category: "政策法规",
+        date: "2026-04-24",
+        summary: "海关总署发布关于西班牙动物蛋白饲料输华检疫和卫生要求的公告，规范进口西班牙动物蛋白饲料的检疫工作。",
+        content: '<h3>文号</h3><p>公告2026年第51号</p><h3>发布日期</h3><p>2026年4月24日</p><h3>主要内容</h3><p>公告规定了西班牙动物蛋白饲料输华的检疫和卫生要求，包括生产企业注册、原料来源、加工工艺和产品安全等方面的要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/29/article_2026042908353655600.html"}]
+    },
+    {
+        id: 30,
+        title: "海关总署公告2026年第50号：进口非洲干辣椒植物检疫要求",
+        category: "政策法规",
+        date: "2026-04-26",
+        summary: "海关总署发布关于非洲干辣椒输华植物检疫要求的公告，允许符合检疫要求的非洲干辣椒进口。",
+        content: '<h3>文号</h3><p>公告2026年第50号</p><h3>发布日期</h3><p>2026年4月26日</p><h3>主要内容</h3><p>公告规定了非洲干辣椒输华的植物检疫要求，包括产地管理、加工储运、检疫审批、植物检疫证书等要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/29/article_2026042908410898954.html"}]
+    },
+    {
+        id: 31,
+        title: "海关总署公告2026年第47号：进口南非鲜食柑橘植物检疫补充要求",
+        category: "政策法规",
+        date: "2026-04-22",
+        summary: "海关总署发布关于南非鲜食柑橘输华植物检疫补充要求的公告，对原有检疫要求进行补充完善。",
+        content: '<h3>文号</h3><p>公告2026年第47号</p><h3>发布日期</h3><p>2026年4月22日</p><h3>主要内容</h3><p>在原有检疫要求基础上，增加了对南非鲜食柑橘产地冷处理、果园注册登记、包装标识等补充要求，进一步确保进口柑橘的检疫安全。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-04/24/article_2026042414020263788.html"}]
+    },
+    {
+        id: 32,
+        title: "海关总署公告2026年第23号：扩大公路跨境快速通关改革适用范围至南宁关区",
+        category: "政策法规",
+        date: "2026-02-27",
+        summary: "海关总署宣布将公路跨境快速通关改革适用范围扩大至南宁关区，进一步推动西部陆海新通道建设。",
+        content: '<h3>文号</h3><p>公告2026年第23号</p><h3>发布日期</h3><p>2026年2月27日</p><h3>主要内容</h3><p>公路跨境快速通关改革试点扩大至南宁关区，进一步简化公路口岸通关流程，提高跨境公路运输的通关效率。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/?agt=2758"}]
+    },
+    {
+        id: 33,
+        title: "海关总署公告2026年第19号：河套深港科技创新合作区深圳园区进口货物免税管理办法",
+        category: "政策法规",
+        date: "2026-02-09",
+        summary: "海关总署发布《中华人民共和国海关对河套深港科技创新合作区深圳园区进口货物免税管理办法》。",
+        content: '<h3>文号</h3><p>公告2026年第19号</p><h3>发布日期</h3><p>2026年2月9日</p><h3>主要内容</h3><p>办法明确了河套深港科技创新合作区深圳园区进口货物免税管理的具体规定，包括适用范围、免税条件、申报流程、后续监管等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-02/11/article_2026021109380535582.html"}]
+    },
+    {
+        id: 34,
+        title: "海关总署公告2026年第18号：海南自由贸易港岛内居民消费零关税进境商品监管暂行办法",
+        category: "政策法规",
+        date: "2026-02-09",
+        summary: "海关总署发布海南自由贸易港岛内居民消费零关税进境商品经营场所及商品的监管暂行办法。",
+        content: '<h3>文号</h3><p>公告2026年第18号</p><h3>发布日期</h3><p>2026年2月9日</p><h3>主要内容</h3><p>办法对海南自由贸易港岛内居民消费的零关税进境商品经营场所和零关税进境商品实施监管作出具体规定。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-02/11/article_2026021109323431211.html"}]
+    },
+    {
+        id: 35,
+        title: "海关总署公告2026年第13号：执行《鼓励外商投资产业目录(2025年版)》有关事项",
+        category: "政策法规",
+        date: "2026-01-27",
+        summary: "海关总署发布关于执行《鼓励外商投资产业目录(2025年版)》有关事项的公告，明确相关商品进口税收优惠的执行。",
+        content: '<h3>文号</h3><p>公告2026年第13号</p><h3>发布日期</h3><p>2026年1月27日</p><h3>主要内容</h3><p>公告明确了外商投资企业在鼓励类项目下进口自用设备享受税收优惠的具体申报要求和审核程序。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/302249/302266/2011fa33-2.html"}]
+    },
+    {
+        id: 36,
+        title: "海关总署公告2026年第12号：启动进出口货物多式联运（海铁、水水）中转模式",
+        category: "政策法规",
+        date: "2026-01-27",
+        summary: "海关总署发布关于启动进出口货物多式联运（海铁、水水）中转模式的公告，进一步推动多式联运发展。",
+        content: '<h3>文号</h3><p>公告2026年第12号</p><h3>发布日期</h3><p>2026年1月27日</p><h3>主要内容</h3><p>公告启动了进出口货物海铁联运和水水联运中转模式，明确了转运申报、货物监管等要求，旨在提升物流效率。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/302249/302266/2011fa33-2.html"}]
+    },
+    {
+        id: 37,
+        title: "执行2026年关税调整方案及有关事宜公告的解读",
+        category: "政策法规",
+        date: "2025-12-31",
+        summary: "经国务院批准，《2026年关税调整方案》自2026年1月1日起实施，海关总署公布有关执行事宜的公告解读。",
+        content: '<h3>发布机关</h3><p>海关总署</p><h3>发布日期</h3><p>2025年12月31日</p><h3>生效日期</h3><p>2026年1月1日</p><h3>主要内容</h3><p>解读明确了关税调整后相关商品编号申报等有关事项，包括税则调整范围、税率变化、申报要求等。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2025-12/31/article_2025123119401553789.html"}]
+    },
+    {
+        id: 38,
+        title: "进口西班牙动物蛋白肥料检疫和卫生要求的公告",
+        category: "政策法规",
+        date: "2026-05-14",
+        summary: "海关总署发布关于进口西班牙动物蛋白肥料检疫和卫生要求的政策解读，明确进口条件和检验检疫程序。",
+        content: '<h3>发布机关</h3><p>海关总署</p><h3>发布日期</h3><p>2026年5月14日</p><h3>主要内容</h3><p>对西班牙动物蛋白肥料输华的检验检疫和卫生要求进行解释，包括境外生产企业注册、产品标准、检疫证书等方面的具体要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/14/article_2026051418232375138.html"}]
+    },
+    {
+        id: 39,
+        title: "海关总署公告2026年第1号：进口法国苜蓿草检验检疫要求",
+        category: "政策法规",
+        date: "2026-01-05",
+        summary: "海关总署2026年第1号公告，发布关于法国苜蓿草输华检验检疫要求的公告。",
+        content: '<h3>文号</h3><p>公告2026年第1号</p><h3>发布日期</h3><p>2026年1月5日</p><h3>主要内容</h3><p>公告规定了法国苜蓿草输华的检验检疫要求，包括产地管理、加工储运要求、检疫审批和植物检疫证书等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"政策解读", url:"http://shenzhen.customs.gov.cn/nanning_customs/600356/fdzdgknr6792/zcjd14/6998503/index.html"}]
+    },
+    // ==================== 通知公告 ====================
+    {
+        id: 40,
+        title: "海关总署公告2026年第65号：关于防止埃博拉病毒病疫情传入我国的公告",
+        category: "通知公告",
+        date: "2026-05-18",
+        summary: "海关总署发布2026年第65号公告，严防埃博拉病毒病疫情传入我国，对来自疫区的人员、交通工具、货物等实施检疫措施。",
+        content: '<p>为严防埃博拉病毒病疫情传入我国，保护人民群众身体健康和生命安全，海关总署发布2026年第65号公告，对来自疫情发生国家或地区的人员、交通工具、集装箱等实施卫生检疫。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/19/article_2026051908465759649.html"}]
+    },
+    {
+        id: 41,
+        title: "海关总署 农业农村部公告：防止莱索托非洲马瘟传入我国",
+        category: "通知公告",
+        date: "2026-05-07",
+        summary: "联合公告2026年第59号，禁止直接或间接从莱索托输入马属动物及其相关产品，严防非洲马瘟传入。",
+        content: '<p>海关总署、农业农村部联合发布公告2026年第59号，禁止从莱索托输入马属动物及其相关产品。来自莱索托的运输工具如发现马属动物及其相关产品，一律作退回或销毁处理。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/13/article_2026051308235444475.html"}]
+    },
+    {
+        id: 42,
+        title: "2026年全国海关工作会议：十四五期间年均监管进出口货物52亿吨",
+        category: "通知公告",
+        date: "2026-01-17",
+        summary: "2026年全国海关工作会议在京召开，通报"十四五"期间我国年均监管进出口货物52亿吨、42.3万亿元。",
+        content: '<p>2026年全国海关工作会议于1月17日在京召开。会议通报，"十四五"期间，我国年均监管进出口货物52亿吨、42.3万亿元，体量全球最大，安全总体可控。会议部署了2026年海关重点工作任务。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-01/19/article_2026011909163431094.html"}]
+    },
+    {
+        id: 43,
+        title: "海关总署关于执行进口黄金矿砂免征进口环节增值税政策有关事项的公告",
+        category: "通知公告",
+        date: "2026-01-15",
+        summary: "海关总署发布关于执行进口黄金矿砂免征进口环节增值税政策有关事项的公告，自2026年1月15日起实施。",
+        content: '<p>进口黄金矿砂应按《中华人民共和国进出口税则》规定和货物进口实际报验状态如实准确申报税则号列。自2026年1月15日起，按海关商品编号申报。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-01/09/article_2026012016083456028.html"}]
+    },
+    {
+        id: 44,
+        title: "海关总署公告：启动进出口货物多式联运中转模式",
+        category: "通知公告",
+        date: "2026-01-27",
+        summary: "海关总署2026年第12号公告，启动进出口货物海铁联运和水水联运中转模式，推动多式联运发展。",
+        content: '<p>海关总署发布2026年第12号公告，启动进出口货物多式联运（海铁、水水）中转模式。新模式简化了转运手续，企业可通过"单一窗口"办理转关手续，进一步提升物流效率。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/302249/302266/2011fa33-2.html"}]
+    },
+    {
+        id: 45,
+        title: "海关总署关于第284号令《进出口化妆品检验检疫监督管理办法》施行事项公告",
+        category: "通知公告",
+        date: "2026-05-12",
+        summary: "海关总署发布关于实施《中华人民共和国海关进出口化妆品检验检疫监督管理办法》有关事项的公告。",
+        content: '<p>《中华人民共和国海关进出口化妆品检验检疫监督管理办法》（海关总署令第284号）已发布施行。海关总署就办法实施有关事项发布公告解读，明确企业备案、产品申报、检验检疫流程等具体要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/12/article_2026051218041286566.html"}]
+    },
+    {
+        id: 46,
+        title: "海关总署关于河套深港科技创新合作区进口货物免税管理办法发布施行",
+        category: "通知公告",
+        date: "2026-02-09",
+        summary: "海关总署公告2026年第19号，发布《海关对河套深港科技创新合作区深圳园区进口货物免税管理办法》。",
+        content: '<p>海关总署制定了《中华人民共和国海关对河套深港科技创新合作区深圳园区进口货物免税管理办法》，并于2026年2月9日发布施行。办法对科研设备、材料等进口免税管理作出规定。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-02/11/article_2026021109380535582.html"}]
+    },
+    {
+        id: 47,
+        title: "海关总署关于进口莫桑比克野生水产品检验检疫要求的公告",
+        category: "通知公告",
+        date: "2026-05-08",
+        summary: "海关总署发布关于莫桑比克野生水产品输华检验检疫要求的政策解读，明确检验检疫要求。",
+        content: '<p>海关总署就莫桑比克野生水产品输华的检验检疫和卫生要求进行解读，包括境外生产企业注册、品种范围、捕捞加工储运条件、检验检疫证书等具体要求。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/08/article_2026050821235171002.html"}]
+    },
+    {
+        id: 48,
+        title: "海关总署关于2026年关税调整方案实施有关事项公告",
+        category: "通知公告",
+        date: "2026-01-01",
+        summary: "经国务院批准，《2026年关税调整方案》自2026年1月1日起实施。海关总署发布执行事宜公告。",
+        content: '<p>2026年关税调整方案对部分商品的进口关税税率和税目进行调整。海关总署发布执行公告，明确相关商品编号申报、优惠税率适用等事项。相关企业可通过海关总署网站查询最新税率。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署解读", url:"http://www.customs.gov.cn/customs/2025-12/31/article_2025123119401553789.html"}]
+    },
+    {
+        id: 49,
+        title: "海关总署关于进口乌克兰小麦粉检验检疫和卫生要求的公告",
+        category: "通知公告",
+        date: "2026-05-11",
+        summary: "海关总署发布关于乌克兰小麦粉输华检验检疫和卫生要求政策解读，明确进口条件。",
+        content: '<p>海关总署就乌克兰小麦粉输华检验检疫和卫生要求进行解读，包括境外生产企业注册、原料要求、加工储运条件、检验检疫证书等内容。</p>',
+        author: "海关总署", pinned: false,
+        links: [{title:"海关总署原文", url:"http://www.customs.gov.cn/customs/2026-05/11/article_2026051111263276525.html"}]
+    }
+];
+    </script>
+    <script>
+// ========================================
+// 信息公示平台 - 核心脚本
+// ========================================
+
+(function() {
+    'use strict';
+
+    // -------- 工具函数 --------
+    const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+    const $$ = (sel, ctx) => [...(ctx || document).querySelectorAll(sel)];
+
+    // 当前状态
+    let currentCategory = '全部';
+    let currentSearch = '';
+    let currentPage = 1;
+    const PER_PAGE = 10;
+
+    // -------- 页面初始化 --------
+    function init() {
+        applySiteConfig();
+        renderCategoryNav();
+        bindSearch();
+        bindCategoryClicks();
+        renderNotices();
+        bindPageNav();
+    }
+
+    // 应用网站配置
+    function applySiteConfig() {
+        document.title = SITE_CONFIG.siteName;
+        const nameEl = $('.site-title');
+        const descEl = $('.site-subtitle');
+        const copyEl = $('.footer-copyright');
+        const icpEl = $('.footer-icp');
+        if (nameEl) nameEl.textContent = SITE_CONFIG.siteName;
+        if (descEl) descEl.textContent = SITE_CONFIG.siteDesc;
+        if (copyEl) copyEl.textContent = `© ${new Date().getFullYear()} ${SITE_CONFIG.copyright}`;
+        if (icpEl) icpEl.textContent = SITE_CONFIG.icp || '';
+    }
+
+    // 渲染分类标签
+    function renderCategoryNav() {
+        const nav = $('.category-nav');
+        if (!nav) return;
+        const cats = SITE_CONFIG.categories || CATEGORIES;
+        nav.innerHTML = cats.map(c =>
+            `<span class="category-tag${c === currentCategory ? ' active' : ''}" data-category="${c}">${c}</span>`
+        ).join('');
+    }
+
+    // 绑定搜索事件
+    function bindSearch() {
+        const input = $('.search-input');
+        const btn = $('.search-btn');
+        const clear = $('.search-clear');
+        if (!input) return;
+
+        input.addEventListener('input', () => {
+            if (clear) clear.classList.toggle('visible', input.value.length > 0);
+        });
+
+        if (clear) {
+            clear.addEventListener('click', () => {
+                input.value = '';
+                clear.classList.remove('visible');
+                currentSearch = '';
+                currentPage = 1;
+                renderNotices();
+                input.focus();
+            });
+        }
+
+        if (btn) {
+            btn.addEventListener('click', () => {
+                currentSearch = input.value.trim();
+                currentPage = 1;
+                renderNotices();
+            });
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                currentSearch = input.value.trim();
+                currentPage = 1;
+                renderNotices();
+            }
+        });
+    }
+
+    // 绑定分类点击
+    function bindCategoryClicks() {
+        const nav = $('.category-nav');
+        if (!nav) return;
+        nav.addEventListener('click', (e) => {
+            const tag = e.target.closest('.category-tag');
+            if (!tag) return;
+            currentCategory = tag.dataset.category;
+            currentPage = 1;
+            renderCategoryNav();
+            renderNotices();
+        });
+    }
+
+    // 绑定页面导航（首页/关于）
+    function bindPageNav() {
+        const navLinks = $$('.header-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (!href || href === '#') {
+                    e.preventDefault();
+                    showHome();
+                } else if (href === '#about') {
+                    e.preventDefault();
+                    showAbout();
+                } else if (href === 'index.html' || href === './' || href === '/') {
+                    e.preventDefault();
+                    showHome();
+                }
+            });
+        });
+    }
+
+    // -------- 渲染公告列表 --------
+    function renderNotices() {
+        const container = $('.notice-container');
+        const resultInfo = $('.result-info span');
+        if (!container) return;
+
+        // 过滤
+        let filtered = [...NOTICES];
+        if (currentCategory !== '全部') {
+            filtered = filtered.filter(n => n.category === currentCategory);
+        }
+        if (currentSearch) {
+            const kw = currentSearch.toLowerCase();
+            filtered = filtered.filter(n =>
+                n.title.toLowerCase().includes(kw) ||
+                n.summary.toLowerCase().includes(kw) ||
+                n.category.toLowerCase().includes(kw) ||
+                (n.author && n.author.toLowerCase().includes(kw))
+            );
+        }
+
+        // 排序：置顶优先，然后按日期倒序
+        filtered.sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1;
+            if (!a.pinned && b.pinned) return 1;
+            return b.date.localeCompare(a.date);
+        });
+
+        if (resultInfo) {
+            resultInfo.textContent = `共找到 ${filtered.length} 条信息`;
+        }
+
+        // 分页
+        const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        const start = (currentPage - 1) * PER_PAGE;
+        const pageItems = filtered.slice(start, start + PER_PAGE);
+
+        if (pageItems.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state" style="background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);">
+                    <div class="empty-state-icon">📭</div>
+                    <div class="empty-state-text">没有找到相关信息</div>
+                </div>`;
+            renderPagination(0, 0);
+            return;
+        }
+
+        container.innerHTML = `<div class="notice-list">${pageItems.map(item => renderNoticeItem(item)).join('')}</div>`;
+
+        renderPagination(totalPages, filtered.length);
+
+        // 绑定点击事件
+        $$('.notice-item', container).forEach(el => {
+            el.addEventListener('click', () => {
+                const id = parseInt(el.dataset.id);
+                showDetail(id);
+            });
+        });
+    }
+
+    function renderNoticeItem(item) {
+        const dateParts = item.date.split('-');
+        const monthDay = `${parseInt(dateParts[1])}月${parseInt(dateParts[2])}日`;
+        return `
+            <div class="notice-item${item.pinned ? ' pinned' : ''}" data-id="${item.id}">
+                ${item.pinned ? '<span class="pin-badge">置顶</span>' : ''}
+                <div class="notice-date-col">
+                    <div class="notice-date-day">${dateParts[2]}</div>
+                    <div class="notice-date-month">${dateParts[0]}/${dateParts[1]}</div>
+                </div>
+                <div class="notice-content-col">
+                    <div class="notice-title">${escapeHtml(item.title)}</div>
+                    <div class="notice-summary">${escapeHtml(item.summary)}</div>
+                    <div class="notice-meta">
+                        <span class="notice-category-tag">${escapeHtml(item.category)}</span>
+                        <span>📅 ${item.date}</span>
+                        <span>🏢 ${escapeHtml(item.author || '')}</span>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    // -------- 分页 --------
+    function renderPagination(totalPages, totalItems) {
+        const paginationEl = $('.pagination');
+        if (!paginationEl) return;
+        if (totalPages <= 1) {
+            paginationEl.innerHTML = '';
+            return;
+        }
+
+        let html = '';
+        html += `<button class="page-btn" ${currentPage <= 1 ? 'disabled' : ''} data-page="${currentPage - 1}">« 上一页</button>`;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (totalPages <= 7 || i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                html += `<button class="page-btn${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</button>`;
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                html += `<span style="padding:8px 4px;color:#9ca3af;">...</span>`;
+            }
+        }
+
+        html += `<button class="page-btn" ${currentPage >= totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">下一页 »</button>`;
+
+        paginationEl.innerHTML = html;
+
+        // 绑定分页点击
+        $$('.page-btn', paginationEl).forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.disabled) return;
+                currentPage = parseInt(btn.dataset.page);
+                renderNotices();
+                $('.main-container').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    }
+
+    // -------- 详情页 --------
+    function showDetail(id) {
+        const notice = NOTICES.find(n => n.id === id);
+        if (!notice) return;
+
+        const main = $('.main-container');
+
+        // 附件 HTML
+        const attachmentsHtml = notice.attachments && notice.attachments.length
+            ? `<div class="detail-section">
+                <h3>📎 附件下载</h3>
+                <div class="attachment-list">
+                    ${notice.attachments.map(a => `
+                        <a class="attachment-item" href="${escapeHtml(a.url)}" target="_blank" download>
+                            <span class="attachment-icon">${getFileIcon(a.name, a.type)}</span>
+                            <span class="attachment-name">${escapeHtml(a.name)}</span>
+                            <span class="attachment-action">下载</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>` : '';
+
+        // 相关链接 HTML
+        const linksHtml = notice.links && notice.links.length
+            ? `<div class="detail-section">
+                <h3>🔗 相关链接</h3>
+                <div class="link-list">
+                    ${notice.links.map(l => `
+                        <a class="link-item" href="${escapeHtml(l.url)}" target="_blank" rel="noopener">
+                            <span>${escapeHtml(l.title)}</span>
+                            <span class="link-arrow">↗</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>` : '';
+
+        // 上传文件 / 联系管理员
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const uploadHtml = isLocal ? `
+            <div class="detail-section">
+                <h3>📤 上传文件</h3>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-dropzone">
+                        <span class="upload-icon">📂</span>
+                        <p>点击或拖拽文件到这里上传</p>
+                        <p class="upload-hint">支持 Word、Excel、PDF、图片等格式</p>
+                    </div>
+                    <input type="file" id="uploadFileInput" multiple accept="*/*" style="display:none;">
+                </div>
+                <div class="upload-progress" id="uploadProgress" style="display:none;">
+                    <span class="upload-progress-text"></span>
+                    <div class="upload-progress-bar"><div class="upload-progress-fill"></div></div>
+                </div>
+            </div>` : `
+            <div class="detail-section">
+                <h3>📤 附件说明</h3>
+                <div class="upload-dropzone" style="border-style:solid;">
+                    <span class="upload-icon">📧</span>
+                    <p>如需添加附件或文件，请联系管理员上传</p>
+                </div>
+            </div>`;
+
+        main.innerHTML = `
+            <div class="detail-page">
+                <button class="detail-back" onclick="window.showHome()">← 返回列表</button>
+                <div class="detail-header">
+                    <h1 class="detail-title">${escapeHtml(notice.title)}</h1>
+                    <div class="detail-meta">
+                        <span>📅 发布日期：${notice.date}</span>
+                        <span class="notice-category-tag">${escapeHtml(notice.category)}</span>
+                        <span>🏢 ${escapeHtml(notice.author || '')}</span>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    ${notice.content}
+                </div>
+                ${attachmentsHtml}
+                ${linksHtml}
+                ${uploadHtml}
+            </div>`;
+
+        // 绑定上传事件（仅本地环境）
+        if (isLocal) bindUpload(notice.id);
+
+        // 隐藏搜索和分类
+        $('.search-bar').style.display = 'none';
+        $('.category-nav').style.display = 'none';
+        $('.result-info').style.display = 'none';
+        $('.pagination').innerHTML = '';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // 暴露返回函数
+        window.showHome = showHome;
+    }
+
+    function getFileIcon(filename, type) {
+        const ext = (filename || '').split('.').pop().toLowerCase();
+        const map = {
+            pdf: '📄', doc: '📝', docx: '📝', xls: '📊', xlsx: '📊',
+            ppt: '📽', pptx: '📽', jpg: '🖼', jpeg: '🖼', png: '🖼',
+            gif: '🖼', webp: '🖼', zip: '📦', rar: '📦', '7z': '📦',
+            txt: '📃', mp4: '🎬', mp3: '🎵'
+        };
+        return map[ext] || map[type] || '📎';
+    }
+
+    function bindUpload(noticeId) {
+        const area = $('#uploadArea');
+        const input = $('#uploadFileInput');
+        const progress = $('#uploadProgress');
+
+        if (!area || !input) return;
+
+        // 点击上传区域
+        area.addEventListener('click', () => input.click());
+
+        // 选择文件
+        input.addEventListener('change', () => {
+            if (input.files.length) uploadFiles(input.files, progress);
+        });
+
+        // 拖拽上传
+        area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('dragover'); });
+        area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+        area.addEventListener('drop', (e) => {
+            e.preventDefault();
+            area.classList.remove('dragover');
+            if (e.dataTransfer.files.length) uploadFiles(e.dataTransfer.files, progress);
+        });
+    }
+
+    async function uploadFiles(files, progressEl) {
+        const formData = new FormData();
+        for (const f of files) {
+            formData.append('files', f);
+        }
+
+        progressEl.style.display = 'block';
+        $('.upload-progress-text', progressEl).textContent = `正在上传 ${files.length} 个文件...`;
+
+        try {
+            const resp = await fetch('/api/upload', { method: 'POST', body: formData });
+            const data = await resp.json();
+
+            if (data.ok) {
+                $('.upload-progress-text', progressEl).textContent = `✅ 上传成功！${data.files.length} 个文件`;
+                setTimeout(() => { progressEl.style.display = 'none'; }, 3000);
+            } else {
+                $('.upload-progress-text', progressEl).textContent = `❌ 上传失败: ${data.error}`;
+            }
+        } catch (err) {
+            $('.upload-progress-text', progressEl).textContent = `❌ 网络错误: ${err.message}`;
+        }
+    }
+
+    function showHome() {
+        const main = $('.main-container');
+        main.innerHTML = `<div class="notice-container"></div>`;
+        $('.search-bar').style.display = '';
+        $('.category-nav').style.display = '';
+        $('.result-info').style.display = '';
+        $('.pagination').innerHTML = '';
+
+        init();
+    }
+
+    window.showHome = showHome;
+
+    // -------- 关于页面 --------
+    function showAbout() {
+        const main = $('.main-container');
+        main.innerHTML = `
+            <div class="about-page">
+                <h2>关于我们</h2>
+                <div class="about-card">
+                    <h3>平台简介</h3>
+                    <p>${SITE_CONFIG.siteName}是面向公众的官方信息发布平台，致力于推进信息公开工作，保障公众的知情权、参与权和监督权。</p>
+                </div>
+                <div class="about-card">
+                    <h3>服务内容</h3>
+                    <p>本平台主要发布以下类型信息：</p>
+                    <p>1. 通知公告：重要事项的通知和公告信息；</p>
+                    <p>2. 政策法规：相关的政策和法律法规信息；</p>
+                    <p>3. 办事指南：各项业务的办理流程和指南；</p>
+                    <p>4. 结果公示：各类审批、评选结果的公开公示。</p>
+                </div>
+                <div class="about-card">
+                    <h3>联系我们</h3>
+                    <p>如您对本平台有任何意见或建议，欢迎通过以下方式联系我们：</p>
+                    <p>📧 电子邮箱：example@example.com</p>
+                    <p>📞 联系电话：XXX-XXXXXXX</p>
+                    <p>📍 地址：待补充</p>
+                </div>
+            </div>`;
+
+        $('.search-bar').style.display = 'none';
+        $('.category-nav').style.display = 'none';
+        $('.result-info').style.display = 'none';
+        $('.pagination').innerHTML = '';
+    }
+
+    window.showAbout = showAbout;
+
+    // -------- 工具 --------
+    function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // 启动
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
+
+    </script>
+    <script>
+// ========================================
+// 分享功能 —— 二维码弹窗
+// ========================================
+(function() {
+    'use strict';
+    let qrGenerated = false;
+
+    function initShare() {
+        const fab = document.querySelector('.share-fab');
+        const overlay = document.querySelector('.qr-overlay');
+        const closeBtn = document.querySelector('.qr-close');
+        const qrContainer = document.getElementById('qrcode');
+        const qrUrl = document.getElementById('qrUrl');
+
+        if (!fab || !overlay) return;
+
+        fab.addEventListener('click', () => {
+            overlay.classList.add('show');
+            if (!qrGenerated) { generateQR(qrContainer, qrUrl); qrGenerated = true; }
+        });
+
+        closeBtn.addEventListener('click', () => overlay.classList.remove('show'));
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('show'); });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('show')) overlay.classList.remove('show');
+        });
+    }
+
+    function generateQR(container, urlEl) {
+        let url = window.location.origin + window.location.pathname;
+        // 去掉 index.html
+        url = url.replace(/\/index\.html$/, '/').replace(/\/$/, '') || url;
+        // 如果是 localhost ，提示用局域网地址
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            url = 'http://192.168.1.254:' + (window.location.port || '80') + window.location.pathname;
+        }
+
+        if (urlEl) urlEl.textContent = url;
+
+        if (typeof QRCode !== 'undefined') {
+            new QRCode(container, {
+                text: url, width: 200, height: 200,
+                colorDark: '#1f2937', colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+            const img = container.querySelector('img');
+            if (img) img.removeAttribute('title');
+        } else {
+            container.innerHTML = `<div style="padding:20px;font-size:14px;">网站地址：<br><strong style="word-break:break-all;">${url}</strong></div>`;
+        }
+    }
+
+    window.copyQrUrl = function() {
+        let url = window.location.origin + window.location.pathname;
+        url = url.replace(/\/index\.html$/, '/');
+        const btn = document.querySelector('.qr-copy-btn');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(() => showCopied(btn)).catch(() => fallbackCopy(url, btn));
+        } else { fallbackCopy(url, btn); }
+    };
+
+    function fallbackCopy(text, btn) {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); showCopied(btn); } catch (e) { alert('链接：' + text); }
+        document.body.removeChild(ta);
+    }
+
+    function showCopied(btn) {
+        if (!btn) return;
+        const orig = btn.textContent; btn.textContent = '✅ 已复制'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    }
+
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initShare); }
+    else { initShare(); }
+})();
+
+    </script>
+    <script>
+// ========================================
+// 智能问答机器人（直连版 - 适用于静态部署）
+// ========================================
+(function() {
+    'use strict';
+
+    let panelVisible = false;
+    let isProcessing = false;
+    // API Key 从 data.js 读取，如果未配置则提示用户
+    const API_KEY = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.agent && SITE_CONFIG.agent.apiKey) || '';
+    const API_URL = 'https://api.deepseek.com/v1/chat/completions';
+
+    const SYSTEM_PROMPT = `你是信息公示平台的智能客服助手。你的职责是：
+1. 回答用户关于信息公示平台的各类问题
+2. 帮助用户查找和理解公示信息
+3. 引导用户使用平台的功能（搜索、分类浏览等）
+4. 态度友好、专业、准确
+
+关于本平台：
+- 这是一个信息公示平台，发布通知公告、政策法规、办事指南、结果公示等内容
+- 用户可以通过分类筛选和关键词搜索查找信息
+- 支持查看附件、相关链接等功能
+
+如果用户问的问题你无法回答（超出平台范围），请礼貌地说明并建议用户联系相关部门。`;
+
+    function init() {
+        const toggle = document.getElementById('agentToggle');
+        const panel = document.getElementById('agentPanel');
+        const close = document.getElementById('agentClose');
+        const minimize = document.getElementById('agentMinimize');
+        const send = document.getElementById('agentSend');
+        const input = document.getElementById('agentInput');
+
+        if (!toggle || !panel) return;
+
+        toggle.addEventListener('click', () => {
+            panelVisible = !panelVisible;
+            panel.classList.toggle('open', panelVisible);
+            if (panelVisible) input.focus();
+        });
+
+        close.addEventListener('click', () => {
+            panelVisible = false;
+            panel.classList.remove('open');
+        });
+
+        minimize.addEventListener('click', () => {
+            panelVisible = false;
+            panel.classList.remove('open');
+        });
+
+        send.addEventListener('click', sendMessage);
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        input.addEventListener('input', () => {
+            input.style.height = 'auto';
+            input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+        });
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('agentInput');
+        const text = input.value.trim();
+        if (!text || isProcessing) return;
+
+        if (!API_KEY) {
+            addMessage('bot', '智能问答功能尚未配置 API Key。请在 data.js 中设置 SITE_CONFIG.agent.apiKey，或联系管理员。');
+            return;
+        }
+
+        input.value = '';
+        input.style.height = 'auto';
+        isProcessing = true;
+
+        addMessage('user', text);
+        addTyping();
+
+        try {
+            const resp = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: 'deepseek-chat',
+                    messages: [
+                        { role: 'system', content: SYSTEM_PROMPT },
+                        { role: 'user', content: text }
+                    ]
+                })
+            });
+
+            removeTyping();
+            const data = await resp.json();
+
+            if (data.choices && data.choices[0]) {
+                addMessage('bot', data.choices[0].message.content);
+            } else if (data.error) {
+                addMessage('bot', '抱歉，智能助手暂时无法响应（' + data.error.message + '）。请稍后再试。');
+            } else {
+                addMessage('bot', '抱歉，智能助手暂时无法响应，请稍后再试。');
+            }
+        } catch (err) {
+            removeTyping();
+            addMessage('bot', '抱歉，网络连接异常，请稍后再试或通过其他方式联系我们。');
+        }
+
+        isProcessing = false;
+    }
+
+    function addMessage(role, content) {
+        const container = document.getElementById('agentMessages');
+        if (!container) return;
+
+        const div = document.createElement('div');
+        div.className = `agent-msg ${role}`;
+        div.innerHTML = `<div class="agent-msg-content">${formatContent(content)}</div>`;
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function addTyping() {
+        const container = document.getElementById('agentMessages');
+        if (!container) return;
+        const div = document.createElement('div');
+        div.className = 'agent-msg bot typing';
+        div.id = 'typingIndicator';
+        div.innerHTML = '<div class="agent-msg-content"><span class="typing-dot">●</span><span class="typing-dot">●</span><span class="typing-dot">●</span></div>';
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function removeTyping() {
+        const el = document.getElementById('typingIndicator');
+        if (el) el.remove();
+    }
+
+    function formatContent(text) {
+        if (!text) return '';
+        return text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+    </script>
 </body>
 </html>
