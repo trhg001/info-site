@@ -1227,6 +1227,44 @@ a:hover { text-decoration: underline; }
     flex-shrink: 0;
 }
 
+/* ========== 下载横幅 ========== */
+.download-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: var(--max-width, 1120px);
+    margin: 0 auto 20px;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #fefce8 0%, #fffbeb 100%);
+    border: 2px solid #facc15;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+}
+.download-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, .3);
+}
+.download-banner-icon { font-size: 42px; flex-shrink: 0; }
+.download-banner-text { flex: 1; min-width: 0; }
+.download-banner-title { font-size: 16px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+.download-banner-desc { font-size: 13px; color: #78716c; }
+.download-banner-btn {
+    flex-shrink: 0;
+    padding: 10px 22px;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .download-banner { flex-direction: column; text-align: center; padding: 16px; }
+    .download-banner-btn { width: 100%; text-align: center; }
+}
+
 </style>
 </head>
 <body>
@@ -1242,6 +1280,14 @@ a:hover { text-decoration: underline; }
 <a href="https://www.singlewindow.cn" target="_blank" class="service-card"><div class="service-icon">🌐</div><div class="service-name">中国国际贸易单一窗口</div><div class="service-desc">报关报检 · 舱单申报 · 税费支付</div></a>
 <a href="https://co.ccpit.org" target="_blank" class="service-card"><div class="service-icon">📜</div><div class="service-name">原产地证申报系统</div><div class="service-desc">原产地证书 · 自助打印 · 证书查询</div></a>
 </div></div></div>
+<a href="uploads/贵州省农产品出口业务指南汇编.pdf" target="_blank" class="download-banner">
+    <div class="download-banner-icon">📘</div>
+    <div class="download-banner-text">
+        <div class="download-banner-title">贵州省农产品出口业务指南汇编</div>
+        <div class="download-banner-desc">PDF文档 · 点击下载 · 涵盖茶叶/食用菌/水果/水产品等出口全流程业务指南</div>
+    </div>
+    <div class="download-banner-btn">⬇ 下载</div>
+</a>
 <footer class="site-footer"><p class="footer-copyright"></p><p class="footer-icp" style="margin-top:4px;"></p></footer>
 <button class="share-fab" title="分享本网站"><span class="share-fab-icon">📱</span></button>
 <div class="qr-overlay"><div class="qr-modal"><button class="qr-close">✕</button><h3>扫码访问</h3><p class="qr-desc">扫描二维码即可在手机上打开本网站</p><div class="qr-code-wrap"><div id="qrcode"></div></div><div class="qr-url" id="qrUrl"></div><button class="qr-copy-btn" onclick="window.copyQrUrl()">📋 复制链接</button></div></div>
